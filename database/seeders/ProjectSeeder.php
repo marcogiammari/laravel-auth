@@ -26,16 +26,7 @@ class ProjectSeeder extends Seeder
             $newProject->description = $faker->paragraphs(5, true);
             $newProject->image = "https://picsum.photos//600/600?random=1" . rand(1, 100);
             $newProject->link = $faker->url();
-
-            $stacks = "";
-            for ($j = 0; $j < 4; $j++) {
-                $stack = $stacksData[rand(0, count($stacksData) - 1)];
-                if (!str_contains($stacks, $stack)) {
-                    $stacks .= $stack . ' ';
-                }
-            }
-
-            $newProject->stack = $stacks;
+            $newProject->stack = $stacksData[rand(0, count($stacksData) - 1)];;
             $newProject->save();
         }
     }

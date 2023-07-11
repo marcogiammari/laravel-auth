@@ -31,7 +31,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $stacks = Project::select('stack')->distinct()->get();
+        return view('admin.projects.create', compact('stacks'));
     }
 
     /**
@@ -42,7 +43,13 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $newProject = new Project();
+        $newProject->fill($data);
+        $newProject->save();
+
+        return to_route('admin.projects.show', $newProject);
     }
 
     /**
@@ -65,7 +72,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $stacks = Project::select('stack')->distinct()->get();
+        return view('admin.projects.edit', compact('project', 'stacks'));
     }
 
     /**
@@ -77,7 +85,11 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $valid_request = $request->validated();
+        $project->fill($valid_request);
+        $project->save();
+
+        return to_route('admin.projects.show', $project);
     }
 
     /**
@@ -88,6 +100,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return to_route('admin.projects.index');
     }
 }
