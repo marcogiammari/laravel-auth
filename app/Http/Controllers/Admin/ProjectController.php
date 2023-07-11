@@ -17,9 +17,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        // $projects = Project::all();
 
-        return view('admin.projects.index', compact('projects'));
+        // il compact('projects') non serve più, dopo aver condiviso i dati con tutte le view nel provider
+
+        return view('admin.projects.index');
     }
 
     /**
@@ -51,7 +53,6 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $data = $project;
 
         return view('admin.projects.show', compact('project'));
     }
